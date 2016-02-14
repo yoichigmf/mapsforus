@@ -1,5 +1,7 @@
 window.onload = function () {
 
+  var documentSettings = {};
+
   function createMarkerIcon(icon, prefix, markerColor, iconColor) {
     return L.AwesomeMarkers.icon({
       icon: icon,
@@ -24,11 +26,13 @@ window.onload = function () {
 
   function onTableTopLoad() {
     mapPoints(tabletop.sheets("Points").elements);
+    documentSettings = tabletop.sheets("Information").elements;
+    document.title = documentSettings[0]["Customization"];
   }
 
   var tabletop = Tabletop.init( { key: '1I1bHQTUNCPHD6AuyNQfYV6g0qqJI8OjF9UHP9MW4XYg',
-    callback: function(data, tabletop) { onTableTopLoad() },
-    simpleSheet: true } );
+    callback: function(data, tabletop) { onTableTopLoad() } 
+  });
 
   // L.popup({className: 'intro-popup'})
   //   .setLatLng([33.7540521,-84.4237409])

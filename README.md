@@ -20,6 +20,7 @@
 
 # Options
 
+* Marker: [any Font Awesome icon name](https://fortawesome.github.io/Font-Awesome/icons/)
 * Marker colors: red, darkred, lightred, orange, beige, green, darkgreen, lightgreen, blue, darkblue, lightblue, purple, darkpurple, pink, cadetblue, white, gray, lightgray, black
 * Marker icon colors: [any CSS name or hex code](http://www.w3schools.com/colors/colors_names.asp) (e.g. red or #f00)
 
