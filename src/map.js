@@ -11,6 +11,7 @@ window.onload = function () {
     });
   }
 
+  // only run this after Tabletop has loaded (onTabletopLoad())
   function mapPoints(points) {
     var markerArray = [];
     console.log(points[0]);
@@ -25,54 +26,55 @@ window.onload = function () {
     var group = L.featureGroup(markerArray).addTo(map);
 
     // center and zoom map based on points
-    map.fitBounds(group.getBounds());
+    // TODO: unless user has specified a zoom and center
+    var groupBounds = group.getBounds();
+    console.log(groupBounds.getCenter());
+    map.fitBounds(groupBounds);
+
+    // once map is recentered, open popup in center of map
+    if (documentSettings["Info Popup Text:"] !== '') {
+      // TODO: put user-chosen center instead, if they selected one
+      initInfoPopup(documentSettings["Info Popup Text:"], groupBounds.getCenter());
+    };
+  }
+  // reformulate documentSettings as a dictionary, e.g.
+  // {"webpageTitle": "Leaflet Boilerplate", "infoPopupText": "Stuff"}
+  function createDocumentSettings(settings) {
+
+    documentSettings = {};
+
+    for (var i in settings) {
+      var setting = settings[i];
+      console.log(setting);
+      documentSettings[setting.Setting] = setting.Customization;
+    }
+
   }
 
-  function onTableTopLoad() {
+  function onTabletopLoad() {
+    // documentSettings = tabletop.sheets("Information").elements;
+    createDocumentSettings(tabletop.sheets("Information").elements);
+    document.title = documentSettings["Webpage Title:"];
     mapPoints(tabletop.sheets("Points").elements);
-    documentSettings = tabletop.sheets("Information").elements;
-    document.title = documentSettings[0]["Customization"];
   }
 
   var tabletop = Tabletop.init( { key: '1I1bHQTUNCPHD6AuyNQfYV6g0qqJI8OjF9UHP9MW4XYg',
-    callback: function(data, tabletop) { onTableTopLoad() } 
+    callback: function(data, tabletop) { onTabletopLoad() } 
   });
 
-  // L.popup({className: 'intro-popup'})
-  //   .setLatLng([33.7540521,-84.4237409])
-  //   .setContent('' +
-  //     'This is a map of metro Atlanta early voting<br>' +
-  //     'locations for the March 17, 2015 election.<br>' + 
-  //     'On the right side of the screen, you can <br>' +
-  //     'select the county in which you are<br>' + 
-  //     'registered to vote. Once you have selected<br>' + 
-  //     'your county, you can click on the locations<br>' + 
-  //     'to see their times and addresses. You can<br>' +
-  //     'vote early at any location in your own<br>' +
-  //     'county. No reason is required to vote early. ')
-  //   .openOn(map);
+  function initInfoPopup(info, coordinates) {
+    console.log(info);
+    L.popup({className: 'intro-popup'})
+      .setLatLng(coordinates) // this needs to change
+      .setContent(info)
+      .openOn(map);
+  }
 
   var pollingIcon = L.AwesomeMarkers.icon({
     icon: 'check-square-o',
     prefix: 'fa',
     markerColor: 'red'
   });
-
-  // Advance Voting Polling Places
-
-  function onEachPolling(feature, layer) {
-    layer.bindPopup("<b>" + feature.properties.County + " County" +
-      "</b><br>" + feature.properties.Location +
-      "<br>" + feature.properties.Address +
-      "<br>" + feature.properties.City +
-      "<br><br><b>Feb. 23-27:</b> " + feature.properties.Feb23to27 +
-      "<br><b>Sat. Feb. 28:</b> " + feature.properties.Feb28 +
-      "<br><b>Sun. Mar. 1:</b> " + feature.properties.Mar1 +
-      "<br><b>Mar. 2-6:</b> " + feature.properties.Mar2to6 +
-      "<br><b>Sat. Mar. 7:</b> " + feature.properties.Mar7 +
-      "<br><b>Sun. Mar. 8:</b> " + feature.properties.Mar8 +
-      "<br><b>Mar. 9-13:</b> " + feature.properties.Mar9to13);
-  };
 
   // function createCountyLayer(county) {
   //   return L.geoJson(polling, {
@@ -105,14 +107,14 @@ window.onload = function () {
   //   "Fulton": fultonLayer
   // };
 
-  L.control.layers(null, null, {
-    collapsed: false
-  }).addTo(map);
+  // L.control.layers(null, null, {
+  //   collapsed: false
+  // }).addTo(map);
 
-  // change zoom and center of map when county changes
-  map.on('baselayerchange', function(e) {
-    map.fitBounds(e.layer.getBounds(), {
-      maxZoom: 14
-    });
-  });
+  // // change zoom and center of map when county changes
+  // map.on('baselayerchange', function(e) {
+  //   map.fitBounds(e.layer.getBounds(), {
+  //     maxZoom: 14
+  //   });
+  // });
 };
