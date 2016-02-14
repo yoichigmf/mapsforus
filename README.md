@@ -29,7 +29,6 @@
 * easy hosting
 	* github pages?
 * custom icon images?
-* auto-centering
 * geocoding
 * make a favicon for this project
 * map layers
