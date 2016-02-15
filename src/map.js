@@ -11,6 +11,33 @@ window.onload = function () {
     });
   }
 
+  function centerAndZoomMap(points) {
+    var mapCenter = L.latLng();
+    var mapZoom = 0;
+
+    // center and zoom map based on points or to user-specified zoom and center
+    if (documentSettings["Initial Center Latitude:"] !== '' && documentSettings["Initial Center Longitude:"] !== '') {
+      // center and zoom
+      mapCenter = L.latLng(documentSettings["Initial Center Latitude:"], documentSettings["Initial Center Longitude"]);
+      map.setView(mapCenter);
+    } else {
+      var groupBounds = points.getBounds();
+      mapZoom = map.getBoundsZoom(groupBounds);
+      mapCenter = groupBounds.getCenter();
+    }
+
+    if (documentSettings["Initial Zoom:"] !== '') {
+      mapZoom = parseInt(documentSettings["Initial Zoom:"]);
+    }
+
+    map.setView(mapCenter, mapZoom);
+
+    // once map is recentered, open popup in center of map
+    if (documentSettings["Info Popup Text:"] !== '') {
+      initInfoPopup(documentSettings["Info Popup Text:"], mapCenter);
+    };
+  }
+
   // only run this after Tabletop has loaded (onTabletopLoad())
   function mapPoints(points) {
     var markerArray = [];
@@ -25,17 +52,7 @@ window.onload = function () {
 
     var group = L.featureGroup(markerArray).addTo(map);
 
-    // center and zoom map based on points
-    // TODO: unless user has specified a zoom and center
-    var groupBounds = group.getBounds();
-    console.log(groupBounds.getCenter());
-    map.fitBounds(groupBounds);
-
-    // once map is recentered, open popup in center of map
-    if (documentSettings["Info Popup Text:"] !== '') {
-      // TODO: put user-chosen center instead, if they selected one
-      initInfoPopup(documentSettings["Info Popup Text:"], groupBounds.getCenter());
-    };
+    centerAndZoomMap(group);
   }
   // reformulate documentSettings as a dictionary, e.g.
   // {"webpageTitle": "Leaflet Boilerplate", "infoPopupText": "Stuff"}
@@ -45,10 +62,10 @@ window.onload = function () {
 
     for (var i in settings) {
       var setting = settings[i];
-      console.log(setting);
       documentSettings[setting.Setting] = setting.Customization;
     }
 
+    console.log(documentSettings);
   }
 
   function onTabletopLoad() {
@@ -63,7 +80,6 @@ window.onload = function () {
   });
 
   function initInfoPopup(info, coordinates) {
-    console.log(info);
     L.popup({className: 'intro-popup'})
       .setLatLng(coordinates) // this needs to change
       .setContent(info)
@@ -99,7 +115,7 @@ window.onload = function () {
 
   L.tileLayer('http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
     attribution: 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" /><br>' +
-    'Made for <a href="http://www.codeforatlanta.org/"><img src="images/code-for-atlanta.png" height=70></a> by <a href="http://proximityviz.com/"><img src="images/prox-small.png"></a>',
+    'Made from boilerplate code from <a href="http://www.codeforatlanta.org/"><img src="images/codeforatlanta.png" height=30></a>',
     maxZoom: 18
   }).addTo(map);
 
