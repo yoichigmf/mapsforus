@@ -50,7 +50,22 @@ window.onload = function () {
       }).bindPopup("<b>" + point["Title"] + "</b><br>" + point["Description"]));
     }
 
-    var group = L.featureGroup(markerArray).addTo(map);
+    var group = L.featureGroup(markerArray);
+
+    // cluster markers, or don't
+    if (documentSettings["Markercluster:"] === 'on') {
+        var cluster = L.markerClusterGroup({
+            polygonOptions: {
+                opacity: 0.3,
+                weight: 3
+            }
+        });
+    
+        cluster.addLayer(group);
+        map.addLayer(cluster);
+    } else {
+        map.addLayer(group);
+    }
 
     centerAndZoomMap(group);
   }

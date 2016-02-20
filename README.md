@@ -14,7 +14,7 @@
 * [Leaflet Awesome Marker](https://github.com/lvoogdt/Leaflet.awesome-markers)
 * [Fonts]
 	* [Font Awesome](https://fortawesome.github.io/Font-Awesome/)
-* Markercluster
+* [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)
 * Google Docs
 * [Tabletop](https://github.com/jsoma/tabletop)
 
@@ -26,6 +26,7 @@
 
 # To do list
 
+* CDN vs plugins
 * easy hosting
 	* github pages?
 * custom icon images?
@@ -33,6 +34,7 @@
 * make a favicon for this project
 * map layers
 * add support for other icon fonts
+* mobile app version?
 
 * for each point:
 	* coordinates
