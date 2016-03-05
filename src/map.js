@@ -86,6 +86,7 @@ window.onload = function () {
   function onTabletopLoad() {
     // documentSettings = tabletop.sheets("Information").elements;
     createDocumentSettings(tabletop.sheets("Information").elements);
+    addBaseMap();
     document.title = documentSettings["Webpage Title:"];
     mapPoints(tabletop.sheets("Points").elements);
   }
@@ -128,11 +129,17 @@ window.onload = function () {
 
   L.control.attribution({position: 'bottomleft'}).addTo(map);
 
-  L.tileLayer('http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
-    attribution: 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" /><br>' +
-    'Made from boilerplate code from <a href="http://www.codeforatlanta.org/"><img src="images/codeforatlanta.png" height=30></a>',
-    maxZoom: 18
-  }).addTo(map);
+
+
+  function addBaseMap() {
+    var basemap = documentSettings["Tile Provider:"] === '' ? 'Stamen.TonerLite' : documentSettings["Tile Provider:"];
+
+    console.log(documentSettings);
+
+    L.tileLayer.provider(basemap, {
+      maxZoom: 18
+    }).addTo(map);
+  }
 
   // var counties = {
   //   "Fulton": fultonLayer
