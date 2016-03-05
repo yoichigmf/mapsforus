@@ -24,37 +24,9 @@
 * Marker colors: red, darkred, lightred, orange, beige, green, darkgreen, lightgreen, blue, darkblue, lightblue, purple, darkpurple, pink, cadetblue, white, gray, lightgray, black
 * Marker icon colors: [any CSS name or hex code](http://www.w3schools.com/colors/colors_names.asp) (e.g. red or #f00)
 
-# To do list
+# To do list (moved to [waffle](https://waffle.io/ProximityViz/leaflet-google-docs-boilerplate))
 
 * CDN vs plugins
-* easy hosting
-	* github pages?
-* custom icon images?
-* geocoding
-* make a favicon for this project
-* map layers
-* add support for other icon fonts
-* mobile app version?
-
-* for each point:
-	* coordinates
-	* title
-	* description
-	* marker icon
-	* marker color
-	* layer
-
-
-* for doc (all optional)
-	* title
-	* coordinate format
-	* markercluster on/off
-	* org name
-	* org logo
-	* custom center point
-	* custom starting zoom
-	* favicon
-	* basemap
 
 
 
