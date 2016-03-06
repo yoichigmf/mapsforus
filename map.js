@@ -44,9 +44,11 @@ window.onload = function () {
     // check that map has loaded before adding points to it?
     for (var i in points) {
       var point = points[i];
-      markerArray.push(L.marker([point.Latitude, point.Longitude], {
-        icon: createMarkerIcon(point['Marker Icon'], 'fa', point['Marker Color'].toLowerCase(), point['Marker Icon Color'])
-      }).bindPopup("<b>" + point["Title"] + "</b><br>" + point["Description"]));
+      if (point.Latitude !== "" && point.Longitude !== "") {
+        markerArray.push(L.marker([point.Latitude, point.Longitude], {
+          icon: createMarkerIcon(point['Marker Icon'], 'fa', point['Marker Color'].toLowerCase(), point['Marker Icon Color'])
+        }).bindPopup("<b>" + point["Title"] + "</b><br>" + point["Description"]));
+      }
     }
 
     var group = L.featureGroup(markerArray);
