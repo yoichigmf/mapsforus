@@ -14,6 +14,15 @@
 * Push your change(s) to Github
 * Visit http://*username*.github.io/*repository*
 
+## How to get latitudes and longitudes
+For the map to map locations, the locations need coordinates. For any points where you want to get the latitude and longitude, you can obtain coordinates by doing the following:
+
+* Highlight the address, latitude, and longitude columns
+* Geocode -> Geocode Selected Cells (Address to Lat, Long)
+* Wait
+
+![Geocoding](documentation/geocoding.png)
+
 ## How to customize your map
 
 In your google spreadsheet:
@@ -32,5 +41,6 @@ In your google spreadsheet:
 * [leaflet-providers](https://github.com/leaflet-extras/leaflet-providers)
 * Google Docs
 * [Tabletop](https://github.com/jsoma/tabletop)
+* [Google Sheets Geocoding Macro](https://github.com/nuket/google-sheets-geocoding-macro)
 
 ## [To do list](https://waffle.io/ProximityViz/leaflet-google-docs-boilerplate)
