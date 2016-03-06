@@ -41,7 +41,6 @@ window.onload = function () {
   // only run this after Tabletop has loaded (onTabletopLoad())
   function mapPoints(points) {
     var markerArray = [];
-    console.log(points[0]);
     // check that map has loaded before adding points to it?
     for (var i in points) {
       var point = points[i];
@@ -79,19 +78,17 @@ window.onload = function () {
       var setting = settings[i];
       documentSettings[setting.Setting] = setting.Customization;
     }
-
-    console.log(documentSettings);
   }
 
   function onTabletopLoad() {
-    // documentSettings = tabletop.sheets("Information").elements;
-    createDocumentSettings(tabletop.sheets("Information").elements);
+    // documentSettings = tabletop.sheets(constants.informationSheetName).elements;
+    createDocumentSettings(tabletop.sheets(constants.informationSheetName).elements);
     addBaseMap();
     document.title = documentSettings["Webpage Title:"];
-    mapPoints(tabletop.sheets("Points").elements);
+    mapPoints(tabletop.sheets(constants.pointsSheetName).elements);
   }
 
-  var tabletop = Tabletop.init( { key: '1I1bHQTUNCPHD6AuyNQfYV6g0qqJI8OjF9UHP9MW4XYg',
+  var tabletop = Tabletop.init( { key: constants.googleDocID, // from constants.js
     callback: function(data, tabletop) { onTabletopLoad() } 
   });
 
@@ -133,8 +130,6 @@ window.onload = function () {
 
   function addBaseMap() {
     var basemap = documentSettings["Tile Provider:"] === '' ? 'Stamen.TonerLite' : documentSettings["Tile Provider:"];
-
-    console.log(documentSettings);
 
     L.tileLayer.provider(basemap, {
       maxZoom: 18
