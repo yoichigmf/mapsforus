@@ -101,41 +101,22 @@ window.onload = function () {
       .openOn(map);
   }
 
-  var pollingIcon = L.AwesomeMarkers.icon({
-    icon: 'check-square-o',
-    prefix: 'fa',
-    markerColor: 'red'
-  });
-
-  // function createCountyLayer(county) {
-  //   return L.geoJson(polling, {
-  //     filter: function(feature, latlng) {
-  //       switch (feature.properties.County) {
-  //         case county: return true;
-  //         default: return false;
-  //       };
-  //     },
-  //     onEachFeature: onEachPolling,
-  //     pointToLayer: function(feature, latlng) {
-  //       return L.marker(latlng, {icon: pollingIcon});
-  //     }
-  //   });
-  // };
-
-  // var fultonLayer = createCountyLayer("Fulton").addTo(map);
-
   // map
-
-  L.control.attribution({position: 'bottomleft'}).addTo(map);
-
-
-
+  
   function addBaseMap() {
     var basemap = documentSettings["Tile Provider:"] === '' ? 'Stamen.TonerLite' : documentSettings["Tile Provider:"];
 
     L.tileLayer.provider(basemap, {
       maxZoom: 18
     }).addTo(map);
+
+    L.control.attribution({
+      position: 'bottomleft'
+    }).addTo(map);
+
+    var attributionHTML = document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML;
+    attributionHTML = 'Built with <a href="https://github.com/ProximityViz/leaflet-google-docs-boilerplate">Civic Mapomatic</a> by <a href="http://www.codeforatlanta.org/">Code for Atlanta <img src="images/codeforatlanta.png" height=30></a><br>' + attributionHTML;
+    document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML = attributionHTML;
   }
 
   // var counties = {
