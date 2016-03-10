@@ -1,4 +1,4 @@
-# leaflet-google-docs-boilerplate
+# mapsfor.us
 
 
 ## How to deploy your map
@@ -43,4 +43,4 @@ In your google spreadsheet:
 * [Tabletop](https://github.com/jsoma/tabletop)
 * [Google Sheets Geocoding Macro](https://github.com/nuket/google-sheets-geocoding-macro)
 
-## [To do list](https://waffle.io/ProximityViz/leaflet-google-docs-boilerplate)
+## [To do list](https://waffle.io/codeforatlanta/mapsforus)

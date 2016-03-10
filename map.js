@@ -115,7 +115,7 @@ window.onload = function () {
     }).addTo(map);
 
     var attributionHTML = document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML;
-    attributionHTML = 'Built with <a href="https://github.com/ProximityViz/leaflet-google-docs-boilerplate">Civic Mapomatic</a> by <a href="http://www.codeforatlanta.org/">Code for Atlanta <img src="images/codeforatlanta.png" height=30></a><br>' + attributionHTML;
+    attributionHTML = 'Built with <a href="http://mapsfor.us/">mapsfor.us</a> by <a href="http://www.codeforatlanta.org/">Code for Atlanta <img src="http://codeforatlanta.github.io/mapsforus/images/codeforatlanta.png" height=30></a><br>' + attributionHTML;
     document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML = attributionHTML;
   }
 
