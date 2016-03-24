@@ -115,7 +115,8 @@ window.onload = function () {
     }).addTo(map);
 
     var attributionHTML = document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML;
-    attributionHTML = 'Built with <a href="http://mapsfor.us/">mapsfor.us</a> by <a href="http://www.codeforatlanta.org/">Code for Atlanta <img src="http://codeforatlanta.github.io/mapsforus/images/codeforatlanta.png" height=30></a><br>' + attributionHTML;
+    var mapCreatorAttribution = documentSettings["Your Name:"] === '' ? 'Built with' : 'This map was built by ' + documentSettings["Your Name:"] + ' using';
+    attributionHTML = mapCreatorAttribution + ' <a href="http://mapsfor.us/">mapsfor.us</a><br><a href="http://mapsfor.us/">Mapsfor.us</a> was created by <a href="http://www.codeforatlanta.org/">Code for Atlanta</a><br>' + attributionHTML;
     document.getElementsByClassName("leaflet-control-attribution")[0].innerHTML = attributionHTML;
   }
 
