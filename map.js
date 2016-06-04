@@ -18,7 +18,7 @@ window.onload = function () {
     // center and zoom map based on points or to user-specified zoom and center
     if (documentSettings["Initial Center Latitude:"] !== '' && documentSettings["Initial Center Longitude:"] !== '') {
       // center and zoom
-      mapCenter = L.latLng(documentSettings["Initial Center Latitude:"], documentSettings["Initial Center Longitude"]);
+      mapCenter = L.latLng(documentSettings["Initial Center Latitude:"], documentSettings["Initial Center Longitude:"]);
       map.setView(mapCenter);
     } else {
       var groupBounds = points.getBounds();
