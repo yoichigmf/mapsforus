@@ -45,7 +45,7 @@ window.onload = function () {
     var layers = {};
     for (var i in points) {
       var pointLayerNameFromSpreadsheet = points[i].Layer;
-      if (layerNamesFromSpreadsheet.indexOf(pointLayerNameFromSpreadsheet) === -1) {
+      if (pointLayerNameFromSpreadsheet !== "" && layerNamesFromSpreadsheet.indexOf(pointLayerNameFromSpreadsheet) === -1) {
         layerNamesFromSpreadsheet.push(pointLayerNameFromSpreadsheet);
       }
     }
@@ -66,7 +66,6 @@ window.onload = function () {
   // only run this after Tabletop has loaded (onTabletopLoad())
   function mapPoints(points, layers) {
     var markerArray = [];
-    // check that map has loaded before adding points to it?
     for (var i in points) {
       var point = points[i];
       if (point.Latitude !== "" && point.Longitude !== "") {
@@ -91,6 +90,32 @@ window.onload = function () {
     }
     centerAndZoomMap(group);
 
+  }
+
+  // only run this after Tabletop has loaded (onTabletopLoad())
+  function mapHeatmap(points) {
+    var markerArray = [];
+    var boundsArray = [];
+    for (var i in points) {
+      var point = points[i];
+      if (point.Latitude !== "" && point.Longitude !== "") {
+        markerArray.push([Number(point.Latitude), Number(point.Longitude), Number(point.Intensity)]);
+
+        // TODO: use layers
+
+        var marker = L.marker([point.Latitude, point.Longitude]); // TODO: this is only used for bounds, so it should be removed and bounds should be found another way
+        boundsArray.push(marker);
+      }
+    }
+    var heatmapMaxZoom = documentSettings["Heatmap Max Zoom:"] || 17;
+    var heatmap = L.heatLayer(markerArray, {
+      radius: 35,
+      blur: 35,
+      maxZoom: heatmapMaxZoom
+    }).addTo(map);
+
+    var group = L.featureGroup(boundsArray);
+    centerAndZoomMap(group);
   }
 
   // reformulate documentSettings as a dictionary, e.g.
@@ -127,7 +152,11 @@ window.onload = function () {
     document.title = documentSettings["Webpage Title:"];
     var points = tabletop.sheets(constants.pointsSheetName).elements;
     var layers = determineLayers(points);
-    mapPoints(points, layers);
+    if (documentSettings["Map Type:"] === 'Heatmap') {
+      mapHeatmap(points);
+    } else {
+      mapPoints(points, layers);
+    }
   }
 
   var tabletop = Tabletop.init( { key: constants.googleDocID, // from constants.js
